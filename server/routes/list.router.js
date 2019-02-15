@@ -52,4 +52,16 @@ listRouter.put('/:id', (req, res) => {
             res.sendStatus(500);
         });
 })
+listRouter.delete('/:id', (req, res) => {
+    console.log('/list DELETE request was hit');
+    console.log('req.params', req.params);
+    pool.query(`DELETE FROM "Do-them-loser" WHERE "id"=$1;`, [req.params.id])
+        .then(() => {
+            res.sendStatus(204);
+        }).catch(error => {
+            console.log('there was an error on the task delete query', error);
+
+            res.sendStatus(500);
+        });
+});
 module.exports = listRouter;

@@ -75,3 +75,14 @@ function yeetTask() {
         getTasks();
     })
 }
+function killTask() {
+    console.log('delete was clicked');
+    console.log($(this).data().id);
+    const deadTask = $(this).data().id;
+    $.ajax({
+        method: 'DELETE',
+        url: '/list/' + deadTask
+    }).then(function () {
+        getTasks();
+    })
+}
