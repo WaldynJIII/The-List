@@ -22,32 +22,27 @@ function getTasks() {
 
         //conditional statment for transfer button
 
-        response.forEach(function (koala) {
-            if (koala.ready_to_transfer == 'N') {
-                $('#viewKoalas').append(`
+        response.forEach(function (task) {
+            if (task.done == 'N') {
+                $('#viewTasks').append(`
           <tr>
-          <td>${koala.name}</td>
-          <td>${koala.age}</td>
-          <td>${koala.gender}</td>
-          <td>${koala.ready_to_transfer}</td>
-          <td>${koala.notes}</td>
-          <td><button class="transfer-button" data-id="${koala.id}">Transfer</button>
-          <td><button class="remove-button" data-id="${koala.id}">Remove</button>
+          <td>${task.description}</td>
+          <td>${task.motivation}</td>
+          <td>${task.done}</td>
+          <td><button class="done-button" data-id="${task.id}">Complete</button>
+          <td><button class="remove-button" data-id="${task.id}">Remove</button>
           </tr>
           `)
             }
             else {
                 $('#viewKoalas').append(`
-          <tr>
-          <td>${koala.name}</td>
-          <td>${koala.age}</td>
-          <td>${koala.gender}</td>
-          <td>${koala.ready_to_transfer}</td>
-          <td>${koala.notes}</td>
-          <td></td>
-          <td><button class="remove-button" data-id="${koala.id}">Remove</button>
-          </tr>
-          `)
+ <tr>
+          <td>${task.description}</td>
+          <td>${task.motivation}</td>
+          <td>${task.done}</td>
+          
+          <td><button class="remove-button" data-id="${task.id}">Remove</button>
+          </tr>`)
             }
 
         })// end of forEach loop
