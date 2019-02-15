@@ -25,6 +25,31 @@ listRouter.get('/', (req, res) => {
         }).catch((error) => {
             console.log('error with task select', error);
             res.sendStatus(500);
-        });//end .catch
-});//end .get
+        });
+});
+listRouter.post('/', (req, res) => {
+    console.log('post route was hit', req.body);
+    let queryText = `INSERT INTO "Do-them-loser"("description", "motivation")
+    VALUES($1, $2);`;
+
+    pool.query(queryText, [req.body.description, req.body.motivation])
+        .then(() => {
+            res.sendStatus(200);
+        }).catch((error) => {
+            console.log('error with koala insert:', error);
+            res.sendStatus(500);
+        });
+});
+listRouter.put('/:id', (req, res) => {
+    console.log('in put request');
+    console.log('req.params', req.params);
+
+
+    pool.query(`UPDATE "Do-them-loser"  SET "done"= 'yes' WHERE "id"=$1`, [req.params.id])
+        .then(() => {
+            res.sendStatus(204);
+        }).catch((error) => {
+            res.sendStatus(500);
+        });
+})
 module.exports = listRouter;

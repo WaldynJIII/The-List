@@ -1,13 +1,16 @@
 $(document).ready(function () {
     console.log('JQ');
     // Establish Click Listeners
-
+    setupClickListeners()
     // load existing koalas on page load
     getTasks();
-    $('#viewTasks').on('click', '.done-button', completeClickListener);
+    $('#viewTasks').on('click', '.done-button', yeetTask);
     $('#viewTasks').on('click', '.remove-button', killTask);
 
 }); 
+function setupClickListeners(){
+    $("#addButton").on('click', saveTask )
+}
 function getTasks() {
     console.log('in getTasks');
     // ajax call to server to get koalas
@@ -40,11 +43,35 @@ function getTasks() {
           <td>${task.description}</td>
           <td>${task.motivation}</td>
           <td>${task.done}</td>
-          
+          <td>&nbsp</td>
           <td><button class="remove-button" data-id="${task.id}">Remove</button>
           </tr>`)
             }
 
         })// end of forEach loop
     }).catch
+}
+function saveTask() {
+  
+ let newTask = {
+     description: $("#descriptionIn").val(),
+     motivation: $("#motivationIn").val()
+ }
+    $.ajax({
+        method: 'POST',
+        url: '/list',
+        data: newTask
+    }).then(function () {
+        $('input').val('');
+        getTasks();
+    })
+}
+function yeetTask() {
+    console.log('transfer button clicked');
+    $.ajax({
+        method: 'PUT',
+        url: '/list/' + $(this).data().id,
+    }).then(function () {
+        getTasks();
+    })
 }
