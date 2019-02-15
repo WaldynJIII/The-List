@@ -16,4 +16,15 @@ pool.on('connect', () => {
 pool.on('error', (error) => {
     console.log('Error with postgres pool', error);
 });
+listRouter.get('/', (req, res) => {
+    console.log('GET route was hit');
+    pool.query('SELECT * FROM "Do-them-loser";')
+        .then((results) => {
+            console.log(results.rows)
+            res.send(results.rows);
+        }).catch((error) => {
+            console.log('error with task select', error);
+            res.sendStatus(500);
+        });//end .catch
+});//end .get
 module.exports = listRouter;

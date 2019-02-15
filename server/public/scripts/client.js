@@ -1,10 +1,10 @@
 $(document).ready(function () {
     console.log('JQ');
     // Establish Click Listeners
-    setupClickListeners()
+
     // load existing koalas on page load
     getTasks();
-    $('#viewTasks').on('click', '.done-button', transferClickListener);
+    $('#viewTasks').on('click', '.done-button', completeClickListener);
     $('#viewTasks').on('click', '.remove-button', killTask);
 
 }); 
@@ -23,7 +23,7 @@ function getTasks() {
         //conditional statment for transfer button
 
         response.forEach(function (task) {
-            if (task.done == 'N') {
+            if (task.done == 'no') {
                 $('#viewTasks').append(`
           <tr>
           <td>${task.description}</td>
@@ -35,7 +35,7 @@ function getTasks() {
           `)
             }
             else {
-                $('#viewKoalas').append(`
+                $('#viewTasks').append(`
  <tr>
           <td>${task.description}</td>
           <td>${task.motivation}</td>
