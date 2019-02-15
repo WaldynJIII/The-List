@@ -31,19 +31,20 @@ function getTasks() {
           <tr>
           <td>${task.description}</td>
           <td>${task.motivation}</td>
-          <td>${task.done}</td>
-          <td><button class="done-button" data-id="${task.id}">Complete</button>
+          
+         <!--<td><button class="done-button" data-id="${task.id}">Complete</button>-->
+         <td><input class="done-button" data-id="${task.id}" type="checkbox"> done?</input></td>
           <td><button class="remove-button" data-id="${task.id}">Remove</button>
           </tr>
           `)
             }
             else {
                 $('#viewTasks').append(`
- <tr>
+ <tr class="nowGreen">
           <td>${task.description}</td>
           <td>${task.motivation}</td>
           <td>${task.done}</td>
-          <td>&nbsp</td>
+          
           <td><button class="remove-button" data-id="${task.id}">Remove</button>
           </tr>`)
             }
